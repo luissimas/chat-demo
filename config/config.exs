@@ -62,7 +62,8 @@ config :phoenix, :json_library, Jason
 # Ueberauth authentication strategies
 config :ueberauth, Ueberauth,
   providers: [
-    github: {Ueberauth.Strategy.Github, [default_scope: "read:user,user:email"]}
+    github: {Ueberauth.Strategy.Github, [default_scope: "read:user,user:email"]},
+    google: {Ueberauth.Strategy.Google, [default_scope: "email profile"]}
   ]
 
 # Import environment specific config. This must remain at the bottom

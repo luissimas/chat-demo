@@ -11,8 +11,8 @@ defmodule ChatDemoWeb.AuthController do
     |> redirect(to: ~p"/")
   end
 
-  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, params) do
-    case auth |> params_from_auth() |> Accounts.fetch_or_create_user() do
+  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, %{"provider" => provider} = _params) do
+    case auth |> params_from_auth(provider) |> Accounts.fetch_or_create_user() do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Welcome to Chat Demo!")
@@ -26,14 +26,12 @@ defmodule ChatDemoWeb.AuthController do
     end
   end
 
-  defp params_from_auth(%Ueberauth.Auth{info: info, credentials: credentials} = auth) do
-    IO.inspect(auth)
-
+  defp params_from_auth(%Ueberauth.Auth{info: info, credentials: credentials}, provider) do
     %{
       email: info.email,
       name: info.name,
       avatar_url: info.image,
-      provider: "github",
+      provider: provider,
       token: credentials.token
     }
   end
