@@ -1,16 +1,10 @@
-<.flash_group flash={@flash} />
-<div>
-  <%= if @user do %>
-    <h1> Welcome <%= @user.name %>!
-      <img width="128px" src={@user.avatar_url} />
-    </h1>
-    <p> You are <strong>signed in</strong> with your <strong><%= @user.provider %> account</strong> </p>
-    <p><strong style="color:teal;"><%= @user.email %></strong></p>
-    <p><.link href={~p"/auth/logout"}>Logout</.link></p>
-  <% else %>
-    <p>You are not logged in</p>
+<div class="max-w-md w-full p-6 bg-white rounded-md shadow-md">
+  <h2 class="text-2xl font-semibold mb-6 text-center">Login with OAuth</h2>
 
-    <p><.link href={~p"/auth/google"}>Sign in with Google</.link></p>
-    <p><.link href={~p"/auth/github"}>Sign in with Github</.link></p>
-  <% end %>
+  <.link href={~p"/auth/google"}>
+    <.button>Login with Google</.button>
+  </.link>
+  <.link href={~p"/auth/github"}>
+    <.button>Login with Github</.button>
+  </.link>
 </div>

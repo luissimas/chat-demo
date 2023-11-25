@@ -15,9 +15,8 @@ defmodule ChatDemoWeb.AuthController do
     case auth |> params_from_auth(provider) |> Accounts.fetch_or_create_user() do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Welcome to Chat Demo!")
         |> put_session(:user_id, user.id)
-        |> redirect(to: ~p"/")
+        |> redirect(to: ~p"/chat")
 
       {:error, _changeset} ->
         conn

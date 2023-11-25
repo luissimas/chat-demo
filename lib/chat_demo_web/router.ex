@@ -17,6 +17,10 @@ defmodule ChatDemoWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :require_auth do
+    plug Plugs.RequireAuth
+  end
+
   scope "/", ChatDemoWeb do
     pipe_through :browser
 
@@ -26,9 +30,16 @@ defmodule ChatDemoWeb.Router do
   scope "/auth", ChatDemoWeb do
     pipe_through :browser
 
-    get "/:logout", AuthController, :logout
+    get "/logout", AuthController, :logout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
+  end
+
+  scope "/chat", ChatDemoWeb do
+    pipe_through :browser
+    pipe_through :require_auth
+
+    live "/", RoomLive, :index
   end
 
   # Other scopes may use custom stacks.
