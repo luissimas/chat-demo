@@ -1,6 +1,8 @@
 defmodule ChatDemoWeb.Router do
   use ChatDemoWeb, :router
 
+  alias ChatDemoWeb.Plugs
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,7 @@ defmodule ChatDemoWeb.Router do
     plug :put_root_layout, html: {ChatDemoWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Plugs.FetchUser
   end
 
   pipeline :api do
@@ -23,6 +26,7 @@ defmodule ChatDemoWeb.Router do
   scope "/auth", ChatDemoWeb do
     pipe_through :browser
 
+    get "/:logout", AuthController, :logout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end

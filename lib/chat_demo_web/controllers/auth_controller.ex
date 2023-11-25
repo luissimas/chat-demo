@@ -16,7 +16,7 @@ defmodule ChatDemoWeb.AuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Welcome to Chat Demo!")
-        |> put_session(:user, user)
+        |> put_session(:user_id, user.id)
         |> redirect(to: ~p"/")
 
       {:error, _changeset} ->
@@ -24,6 +24,13 @@ defmodule ChatDemoWeb.AuthController do
         |> put_flash(:error, "Something went wrong.")
         |> redirect(to: ~p"/")
     end
+  end
+
+  def logout(conn, _params) do
+    conn
+    |> delete_session(:user_id)
+    |> put_flash(:info, "Successfully logged out!")
+    |> redirect(to: ~p"/")
   end
 
   defp params_from_auth(%Ueberauth.Auth{info: info, credentials: credentials}, provider) do

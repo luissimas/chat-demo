@@ -27,6 +27,13 @@ defmodule ChatDemo.Accounts do
     end
   end
 
+  @doc """
+  Fetches the user by id.
+  """
+  def get_user(user_id) do
+    Repo.get(User, user_id)
+  end
+
   defp get_user_by_email(email) do
     Repo.get_by(User, email: email)
   end
