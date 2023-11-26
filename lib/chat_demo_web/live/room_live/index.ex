@@ -6,7 +6,8 @@ defmodule ChatDemoWeb.RoomLive do
   def render(assigns) do
     ~H"""
     <div>
-      <h1>Welcome <%= @user.name %>! <img width="128px" src={@user.avatar_url} /></h1>
+      <h1>Welcome <%= @user.name %>!</h1>
+      <ChatDemoWeb.Components.avatar user={@user} />
       <p>
         You are <strong>signed in</strong> with your <strong><%= @user.provider %> account</strong>
       </p>
