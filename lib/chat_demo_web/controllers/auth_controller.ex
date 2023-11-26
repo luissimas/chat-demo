@@ -28,7 +28,6 @@ defmodule ChatDemoWeb.AuthController do
   def logout(conn, _params) do
     conn
     |> delete_session(:user_id)
-    |> put_flash(:info, "Successfully logged out!")
     |> redirect(to: ~p"/")
   end
 

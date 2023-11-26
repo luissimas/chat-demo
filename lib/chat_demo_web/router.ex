@@ -39,7 +39,7 @@ defmodule ChatDemoWeb.Router do
     pipe_through :browser
     pipe_through :require_auth
 
-    live "/", RoomLive, :index
+    live "/", ChatLive.Index, :index
   end
 
   # Other scopes may use custom stacks.

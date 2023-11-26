@@ -12,9 +12,9 @@
       <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
         <ChatDemoWeb.Components.avatar user={@user}/>
         <.link href={~p"/auth/logout"}>
-          <.button class="bg-transparent text-red-600 hover:bg-red-600 border border-red-600 hover:text-white flex justify-center items-center !p-2 !rounded-full">
+          <button class="bg-transparent text-red-600 hover:bg-red-600 border border-red-600 hover:text-white flex justify-center items-center !p-2 !rounded-full">
             <.icon name="hero-arrow-right-on-rectangle"/>
-          </.button>
+          </button>
         </.link>
       </div>
     <% end %>
