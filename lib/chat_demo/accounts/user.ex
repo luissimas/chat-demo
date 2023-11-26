@@ -9,7 +9,6 @@ defmodule ChatDemo.Accounts.User do
     field :name, :string
     field :avatar_url, :string
     field :provider, :string
-    field :token, :string
 
     timestamps()
   end
@@ -17,8 +16,8 @@ defmodule ChatDemo.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :name, :avatar_url, :provider, :token])
-    |> validate_required([:email, :name, :provider, :token])
+    |> cast(attrs, [:email, :name, :avatar_url, :provider])
+    |> validate_required([:email, :name, :provider])
     |> unique_constraint(:email)
   end
 end

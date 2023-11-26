@@ -8,7 +8,6 @@ defmodule ChatDemo.Repo.Migrations.CreateUsers do
       add :email, :string, null: false
       add :avatar_url, :string
       add :provider, :string, null: false
-      add :token, :string
 
       timestamps()
     end
