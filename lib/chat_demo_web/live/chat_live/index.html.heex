@@ -1,9 +1,16 @@
 <div>
-    <h1>Welcome <%= @user.name %>!</h1>
-    <ChatDemoWeb.Components.avatar user={@user} />
-    <p>
-    You are <strong>signed in</strong> with your <strong><%= @user.provider %> account</strong>
-    </p>
-    <p><strong style="color:teal;"><%= @user.email %></strong></p>
-    <p><.link href="/auth/logout">Logout</.link></p>
+    <div id="messages" phx-update="stream" class="overflow-auto" style="height: calc(88vh - 10rem)">
+        <div :for={{dom_id, message} <- @streams.messages} id={dom_id}>
+            <ChatDemoWeb.Components.message message={message}/>
+        </div>
+    </div>
+    <.form for={@form} phx-submit="send-message" phx-change="update" class="flex justify-center">
+        <div class="flex w-full content-center items-top pt-2">
+            <.input type="text" field={@form[:content]} class="rounded-l-md" placeholder="Write a message..." autocomplete="off"/>
+
+            <.button class="rounded-r-md bg-zinc-900">
+                <.icon name="hero-chevron-double-right"/>
+            </.button>
+        </div>
+    </.form>
 </div>

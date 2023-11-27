@@ -2,6 +2,8 @@ defmodule ChatDemo.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias ChatDemo.Chat.Message
+
   @primary_key {:id, :binary_id, autogenerate: true}
 
   schema "users" do
@@ -9,6 +11,8 @@ defmodule ChatDemo.Accounts.User do
     field :name, :string
     field :avatar_url, :string
     field :provider, :string
+
+    has_many :messages, Message
 
     timestamps()
   end
