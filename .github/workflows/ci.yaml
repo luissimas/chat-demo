@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  build-and-test:
     # Set up a Postgres DB service. By default, Phoenix applications
     # use Postgres. This creates a database for running tests.
     # Additional services can be defined here if required.
