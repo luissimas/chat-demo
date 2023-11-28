@@ -8,10 +8,13 @@ defmodule ChatDemo.ChatFixtures do
   Generate a message.
   """
   def message_fixture(attrs \\ %{}) do
+    user = ChatDemo.AccountFixtures.user_fixture()
+
     {:ok, message} =
       attrs
       |> Enum.into(%{
-        content: "some content"
+        content: "some content",
+        user_id: user.id
       })
       |> ChatDemo.Chat.create_message()
 

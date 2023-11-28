@@ -19,5 +19,6 @@ defmodule ChatDemo.Chat.Message do
     message
     |> cast(attrs, [:content, :user_id])
     |> validate_required([:content, :user_id])
+    |> foreign_key_constraint(:user_id)
   end
 end
