@@ -63,14 +63,21 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  get_env_or_raise = fn varname ->
+    System.get_env(varname) ||
+      raise """
+      environment variable #{varname} is missing.
+      """
+  end
+
   # Ueberauth strategies
   config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-    client_id: System.get_env("GITHUB_CLIENT_ID"),
-    client_secret: System.get_env("GITHUB_CLIENT_SECRET")
+    client_id: get_env_or_raise.("GITHUB_CLIENT_ID"),
+    client_secret: get_env_or_raise.("GITHUB_CLIENT_SECRET")
 
   config :ueberauth, Ueberauth.Strategy.Google.OAuth,
-    client_id: System.get_env("GOOGLE_CLIENT_ID"),
-    client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+    client_id: get_env_or_raise.("GOOGLE_CLIENT_ID"),
+    client_secret: get_env_or_raise.("GOOGLE_CLIENT_SECRET")
 
   # ## SSL Support
   #

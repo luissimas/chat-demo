@@ -52,7 +52,8 @@ defmodule ChatDemo.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:ueberauth, "~> 0.7.0"},
       {:ueberauth_github, "~> 0.8.1"},
-      {:ueberauth_google, "~> 0.10"}
+      {:ueberauth_google, "~> 0.10"},
+      {:timex, "~> 3.0"}
     ]
   end
 

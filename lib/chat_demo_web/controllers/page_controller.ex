@@ -2,8 +2,10 @@ defmodule ChatDemoWeb.PageController do
   use ChatDemoWeb, :controller
 
   def home(conn, _params) do
-    # The home page is often custom made,
-    # so skip the default app layout.
-    render(conn, :home, layout: false)
+    if conn.assigns.user do
+      redirect(conn, to: ~p"/chat")
+    else
+      render(conn, :home)
+    end
   end
 end

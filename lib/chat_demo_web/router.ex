@@ -1,6 +1,8 @@
 defmodule ChatDemoWeb.Router do
   use ChatDemoWeb, :router
 
+  alias ChatDemoWeb.Plugs
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,10 +10,15 @@ defmodule ChatDemoWeb.Router do
     plug :put_root_layout, html: {ChatDemoWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Plugs.FetchUser
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :require_auth do
+    plug Plugs.RequireAuth
   end
 
   scope "/", ChatDemoWeb do
@@ -23,8 +30,16 @@ defmodule ChatDemoWeb.Router do
   scope "/auth", ChatDemoWeb do
     pipe_through :browser
 
+    get "/logout", AuthController, :logout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
+  end
+
+  scope "/chat", ChatDemoWeb do
+    pipe_through :browser
+    pipe_through :require_auth
+
+    live "/", ChatLive.Index, :index
   end
 
   # Other scopes may use custom stacks.
