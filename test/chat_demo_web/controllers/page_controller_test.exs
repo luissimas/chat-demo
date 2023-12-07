@@ -3,6 +3,8 @@ defmodule ChatDemoWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "Login with OAuth"
+
+    assert html_response(conn, 200) =~
+             "Login with OAuth (i think i will cause problems on purpose)"
   end
 end
