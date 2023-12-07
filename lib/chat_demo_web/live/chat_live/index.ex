@@ -44,12 +44,11 @@ defmodule ChatDemoWeb.ChatLive.Index do
 
   @impl true
   def handle_info(%{event: "new_message", payload: message}, socket) do
-    IO.inspect(message)
     {:noreply, stream_insert(socket, :messages, message)}
   end
 
   @impl true
-  def handle_info(%{event: "presence_diff", payload: payload}, socket) do
+  def handle_info(%{event: "presence_diff"}, socket) do
     {:noreply, assign(socket, :users, list_users())}
   end
 
