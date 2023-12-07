@@ -3,9 +3,11 @@
     <ChatDemoWeb.Components.avatar :for={user <- @users} user={user} />
   </div>
   <hr class="mb-6 mt-2" />
-  <div id="messages" phx-update="stream" class="overflow-auto" style="height: calc(88vh - 10rem)">
-    <div :for={{dom_id, message} <- @streams.messages} id={dom_id}>
-      <ChatDemoWeb.Components.message message={message} />
+  <div class="overflow-auto flex flex-col-reverse" style="height: calc(80vh - 10rem)">
+    <div id="messages" phx-update="stream">
+      <div :for={{dom_id, message} <- @streams.messages} id={dom_id}>
+        <ChatDemoWeb.Components.message message={message} />
+      </div>
     </div>
   </div>
   <.form for={@form} phx-submit="send-message" phx-change="update" class="flex justify-center">
@@ -17,7 +19,6 @@
         placeholder="Write a message..."
         autocomplete="off"
       />
-
       <.button class="rounded-r-md bg-zinc-900">
         <.icon name="hero-chevron-double-right" />
       </.button>
