@@ -1,4 +1,8 @@
 <div>
+  <div id="users" class="flex gap-2">
+    <ChatDemoWeb.Components.avatar :for={user <- @users} user={user} />
+  </div>
+  <hr class="mb-6 mt-2" />
   <div id="messages" phx-update="stream" class="overflow-auto" style="height: calc(88vh - 10rem)">
     <div :for={{dom_id, message} <- @streams.messages} id={dom_id}>
       <ChatDemoWeb.Components.message message={message} />
