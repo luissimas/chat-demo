@@ -7,7 +7,7 @@ defmodule ChatDemoWeb.Components do
 
   def avatar(assigns) do
     ~H"""
-    <div class="rounded-full w-10 h-10 bg-zinc-100 flex items-center justify-center">
+    <div class="rounded-full w-10 h-10 bg-zinc-100 flex items-center justify-center min-w-max">
       <%= if has_avatar_url(@user) do %>
         <img class="w-full h-full object-contain object-center rounded-full" src={@user.avatar_url} />
       <% else %>

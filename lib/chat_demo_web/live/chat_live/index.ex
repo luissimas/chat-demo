@@ -4,6 +4,7 @@ defmodule ChatDemoWeb.ChatLive.Index do
   alias ChatDemo.Accounts
   alias ChatDemo.Chat
   alias ChatDemo.Chat.Message
+  alias ChatDemoWeb.RoomPresence
 
   alias Phoenix.PubSub
 
@@ -12,11 +13,13 @@ defmodule ChatDemoWeb.ChatLive.Index do
     user = Accounts.get_user(user_id)
 
     PubSub.subscribe(ChatDemo.PubSub, "chat_room")
+    {:ok, _} = RoomPresence.track(self(), "chat_room", user.id, user)
 
     {:ok,
      socket
      |> assign(:user, user)
      |> assign(:form, to_form(Chat.change_message(%Message{})))
+     |> assign(:users, list_users())
      |> stream(:messages, Chat.list_messages())}
   end
 
@@ -41,7 +44,17 @@ defmodule ChatDemoWeb.ChatLive.Index do
 
   @impl true
   def handle_info(%{event: "new_message", payload: message}, socket) do
-    IO.inspect(message)
     {:noreply, stream_insert(socket, :messages, message)}
+  end
+
+  @impl true
+  def handle_info(%{event: "presence_diff"}, socket) do
+    {:noreply, assign(socket, :users, list_users())}
+  end
+
+  defp list_users() do
+    "chat_room"
+    |> RoomPresence.list()
+    |> Enum.flat_map(fn {_key, value} -> Map.get(value, :metas, []) end)
   end
 end
